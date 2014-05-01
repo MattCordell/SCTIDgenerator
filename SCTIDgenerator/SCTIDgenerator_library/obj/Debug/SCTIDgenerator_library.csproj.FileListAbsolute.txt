@@ -1,0 +1,5 @@
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\SCTIDgenerator_library\bin\Debug\SCTIDgenerator_library.dll
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\SCTIDgenerator_library\bin\Debug\SCTIDgenerator_library.pdb
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\SCTIDgenerator_library\obj\Debug\SCTIDgenerator_library.csprojResolveAssemblyReference.cache
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\SCTIDgenerator_library\obj\Debug\SCTIDgenerator_library.dll
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\SCTIDgenerator_library\obj\Debug\SCTIDgenerator_library.pdb
