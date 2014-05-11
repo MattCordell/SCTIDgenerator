@@ -147,20 +147,20 @@ namespace UnitTests_SCTIDgenerator
         {
             Random rnd = new Random();
             int seed = rnd.Next(int.MaxValue);
-            CheckFedInteger(seed);
+            CheckVerhoefferiseisReproducible(seed);
         }
 
-        private void CheckFedInteger(int seed)
+        private void CheckVerhoefferiseisReproducible(int seed)
         {
 
             long hoffedValue;
             SCTIDgenerator IDgenerator = new SCTIDgenerator(seed);
 
             //first crack at generating a checkdigit for the seed
-            hoffedValue = IDgenerator.Verhoefferise(long.Parse(seed.ToString()));
+            hoffedValue = IDgenerator.Verhoefferise(seed.ToString());
             char firstPass = hoffedValue.ToString()[hoffedValue.ToString().Length - 1];
             //second crack at generating a checkdigit for the seed
-            hoffedValue = IDgenerator.Verhoefferise(long.Parse(seed.ToString()));
+            hoffedValue = IDgenerator.Verhoefferise(seed.ToString());
             char secondPass = hoffedValue.ToString()[hoffedValue.ToString().Length - 1];
 
             //the two check digits generated should be identical.

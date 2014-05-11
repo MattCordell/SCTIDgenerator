@@ -30,25 +30,40 @@ namespace SCTIDgenerator_library
         }
 
 
-
-        public long Verhoefferise(long p)
+        //takes string p, and appends a check digit., and converts it to a long
+        //p will be a cocatentation of rnd+namespace+partitionId
+        public long Verhoefferise(string p)
         {
-            throw new NotImplementedException();
+            string VerhoefferisedResult;
+            VerhoefferisedResult = Verhoeff.generateVerhoeff(p);
+            return long.Parse(VerhoefferisedResult);
         }
 
+        //Generate a ConceptId. Ultimately needs to validate against some repo of used Ids
         public long GenerateConceptId()
         {
-            throw new NotImplementedException();
+            Random rnd = new Random();
+            int foo = rnd.Next(1,99999999);
+            string generatedIdPart = foo.ToString() + ExtenstionNameSpace.ToString() + "10";
+            return Verhoefferise(generatedIdPart);
         }
 
+        //Generate a ConceptId. Ultimately needs to validate against some repo of used Ids
         public long GenerateDescriptionId()
         {
-            throw new NotImplementedException();
+            Random rnd = new Random();
+            int foo = rnd.Next(1, 99999999);
+            string generatedIdPart = foo.ToString() + ExtenstionNameSpace.ToString() + "11";
+            return Verhoefferise(generatedIdPart);
         }
 
+        //Generate a ConceptId. Ultimately needs to validate against some repo of used Ids
         public long GenerateRelationshipId()
         {
-            throw new NotImplementedException();
+            Random rnd = new Random();
+            int foo = rnd.Next(1, 99999999);
+            string generatedIdPart = foo.ToString() + ExtenstionNameSpace.ToString() + "12";
+            return Verhoefferise(generatedIdPart);
         }
     }
 }
