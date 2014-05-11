@@ -17,8 +17,11 @@ namespace Sample_Application_SCTIDgenerator
             Console.WriteLine("ConceptId ="+foo.GenerateConceptId());
             Console.WriteLine("DescriptionId =" + foo.GenerateDescriptionId());
             Console.WriteLine("RelationshipId =" + foo.GenerateRelationshipId());
-            
 
+            string codeString  = "0123456789";
+
+            string beep = codeString.Substring(codeString.Length - 6, 3);
+            Console.WriteLine("This should be 456 : " + beep);
 
             Console.ReadKey();
         }

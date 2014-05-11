@@ -147,10 +147,12 @@ namespace UnitTests_SCTIDgenerator
         {
             Random rnd = new Random();
             int seed = rnd.Next(int.MaxValue);
-            CheckVerhoefferiseisReproducible(seed);
+            CheckVerhoefferiseIsReproducible(seed);
+
+
         }
 
-        private void CheckVerhoefferiseisReproducible(int seed)
+        private void CheckVerhoefferiseIsReproducible(int seed)
         {
 
             long hoffedValue;
@@ -178,6 +180,7 @@ namespace UnitTests_SCTIDgenerator
         
     }
 
+
     //Test Class to Valdidate Generated ConceptIds
     [TestClass]
     public class GenerateConceptId_UnitTests
@@ -190,7 +193,7 @@ namespace UnitTests_SCTIDgenerator
         public void GenerateArtificalConceptId()
         {
             Random rnd = new Random();
-            int ns = rnd.Next(1000000, 9999999);
+            ns = rnd.Next(1000000, 9999999);
             SCTIDgenerator IDgenerator = new SCTIDgenerator(ns);
             ArtificalConceptId = IDgenerator.GenerateConceptId();                      
         }
@@ -207,7 +210,8 @@ namespace UnitTests_SCTIDgenerator
         public void ConceptIdHasNameSpace()
         {
             GenerateArtificalConceptId();
-            int containedNS = int.Parse(ArtificalConceptId.ToString().Substring(-9, 7));
+            int SubstringIndexPosition = ArtificalConceptId.ToString().Length - 10;
+            int containedNS = int.Parse(ArtificalConceptId.ToString().Substring(SubstringIndexPosition, 7));
             Assert.IsTrue(ns == containedNS);
         }
 
@@ -222,7 +226,8 @@ namespace UnitTests_SCTIDgenerator
         public void ConceptIdHasPartitionIdentifierof10()
         {
             GenerateArtificalConceptId();
-            int PartionID = int.Parse(ArtificalConceptId.ToString().Substring(-2, 10));
+            int SubstringIndexPosition = ArtificalConceptId.ToString().Length - 3;
+            int PartionID = int.Parse(ArtificalConceptId.ToString().Substring(SubstringIndexPosition, 2));
             Assert.IsTrue(PartionID == 10);
         }
 
@@ -242,6 +247,7 @@ namespace UnitTests_SCTIDgenerator
     
     }
 
+
     //Test Class to Valdidate Generated DescriptionIds
     [TestClass]
     public class GenerateDescriptionId_UnitTests
@@ -254,7 +260,7 @@ namespace UnitTests_SCTIDgenerator
         public void GenerateArtificalDescriptionId()
         {
             Random rnd = new Random();
-            int ns = rnd.Next(1000000, 9999999);
+            ns = rnd.Next(1000000, 9999999);
             SCTIDgenerator IDgenerator = new SCTIDgenerator(ns);
             ArtificalDescriptionId = IDgenerator.GenerateDescriptionId();
         }
@@ -271,7 +277,8 @@ namespace UnitTests_SCTIDgenerator
         public void DescriptionIdHasNameSpace()
         {
             GenerateArtificalDescriptionId();
-            int containedNS = int.Parse(ArtificalDescriptionId.ToString().Substring(-9, 7));
+            int SubstringIndexPosition = ArtificalDescriptionId.ToString().Length - 10;
+            int containedNS = int.Parse(ArtificalDescriptionId.ToString().Substring(SubstringIndexPosition, 7));
             Assert.IsTrue(ns == containedNS);
         }
 
@@ -286,8 +293,9 @@ namespace UnitTests_SCTIDgenerator
         public void DescriptionIdHasPartitionIdentifierof11()
         {
             GenerateArtificalDescriptionId();
-            int PartionID = int.Parse(ArtificalDescriptionId.ToString().Substring(-2, 11));
-            Assert.IsTrue(PartionID == 10);
+            int SubstringIndexPosition = ArtificalDescriptionId.ToString().Length - 3;
+            int PartionID = int.Parse(ArtificalDescriptionId.ToString().Substring(SubstringIndexPosition, 2));
+            Assert.IsTrue(PartionID == 11);
         }
 
         [TestMethod]
@@ -306,6 +314,7 @@ namespace UnitTests_SCTIDgenerator
 
     }
 
+
     //Test Class to Valdidate Generated RelationshipIds
     [TestClass]
     public class GenerateRelationshipId_UnitTests
@@ -318,7 +327,7 @@ namespace UnitTests_SCTIDgenerator
         public void GenerateArtificalRelationshipId()
         {
             Random rnd = new Random();
-            int ns = rnd.Next(1000000, 9999999);
+            ns = rnd.Next(1000000, 9999999);
             SCTIDgenerator IDgenerator = new SCTIDgenerator(ns);
             ArtificalRelationshipId = IDgenerator.GenerateRelationshipId();
         }
@@ -335,7 +344,8 @@ namespace UnitTests_SCTIDgenerator
         public void RelationshipIdHasNameSpace()
         {
             GenerateArtificalRelationshipId();
-            int containedNS = int.Parse(ArtificalRelationshipId.ToString().Substring(-9, 7));
+            int SubstringIndexPosition = ArtificalRelationshipId.ToString().Length - 10;
+            int containedNS = int.Parse(ArtificalRelationshipId.ToString().Substring(SubstringIndexPosition, 7));
             Assert.IsTrue(ns == containedNS);
         }
 
@@ -350,8 +360,9 @@ namespace UnitTests_SCTIDgenerator
         public void RelationshipIdHasPartitionIdentifierof12()
         {
             GenerateArtificalRelationshipId();
-            int PartionID = int.Parse(ArtificalRelationshipId.ToString().Substring(-2, 12));
-            Assert.IsTrue(PartionID == 10);
+            int SubstringIndexPosition = ArtificalRelationshipId.ToString().Length - 3;
+            int PartionID = int.Parse(ArtificalRelationshipId.ToString().Substring(SubstringIndexPosition, 2));
+            Assert.IsTrue(PartionID == 12);
         }
 
         [TestMethod]
@@ -369,5 +380,6 @@ namespace UnitTests_SCTIDgenerator
         }
 
     }
+
 
 }
