@@ -35,7 +35,7 @@ namespace SCTIDgenerator_library
         public long Verhoefferise(string p)
         {
             string VerhoefferisedResult;
-            VerhoefferisedResult = Verhoeff.generateVerhoeff(p);
+            VerhoefferisedResult = p + Verhoeff.generateVerhoeff(p);
             return long.Parse(VerhoefferisedResult);
         }
 
@@ -44,7 +44,7 @@ namespace SCTIDgenerator_library
         {
             Random rnd = new Random();
             int foo = rnd.Next(1,99999999);
-            string generatedIdPart = foo.ToString() + ExtenstionNameSpace.ToString() + "10";
+            string generatedIdPart = foo.ToString() + ExtenstionNameSpace.ToString() + "10";            
             return Verhoefferise(generatedIdPart);
         }
 
