@@ -178,6 +178,7 @@ namespace UnitTests_SCTIDgenerator
         
     }
 
+    //Test Class to Valdidate Generated ConceptIds
     [TestClass]
     public class GenerateConceptId_UnitTests
     {
@@ -191,40 +192,182 @@ namespace UnitTests_SCTIDgenerator
             Random rnd = new Random();
             int ns = rnd.Next(1000000, 9999999);
             SCTIDgenerator IDgenerator = new SCTIDgenerator(ns);
-            ArtificalConceptId = IDgenerator.GenerateConceptId();
-            Assert.AreNotEqual(ArtificalConceptId, 0);
+            ArtificalConceptId = IDgenerator.GenerateConceptId();                      
         }
 
         [TestMethod]
+        public void ArtificalConceptIdGenerated()
+        {
+            GenerateArtificalConceptId();
+            Assert.AreNotEqual(ArtificalConceptId, 0);  
+        }
+
+        [TestMethod]
+        //Generate a Random ID, and check it contains the seed namespace
         public void ConceptIdHasNameSpace()
         {
-            Assert.IsTrue(false);
+            GenerateArtificalConceptId();
+            int containedNS = int.Parse(ArtificalConceptId.ToString().Substring(-9, 7));
+            Assert.IsTrue(ns == containedNS);
         }
 
         [TestMethod]
         public void ConceptIdHasCheckDigit()
         {
-            Assert.IsTrue(false);
+            GenerateArtificalConceptId();           
+            Assert.IsTrue(Verhoeff.validateVerhoeff(ArtificalConceptId.ToString()));
         }
 
         [TestMethod]
         public void ConceptIdHasPartitionIdentifierof10()
         {
-            Assert.IsTrue(false);
+            GenerateArtificalConceptId();
+            int PartionID = int.Parse(ArtificalConceptId.ToString().Substring(-2, 10));
+            Assert.IsTrue(PartionID == 10);
         }
 
         [TestMethod]
         public void ConceptIdAtLeast11DigitsLong()
         {
-            Assert.IsTrue(false);
+            GenerateArtificalConceptId();
+            Assert.IsTrue(ArtificalConceptId.ToString().Length > 10);
         }
 
         [TestMethod]
         public void ConceptIdLessThan19DigitsLong()
         {
-            Assert.IsTrue(false);
+            GenerateArtificalConceptId();
+            Assert.IsTrue(ArtificalConceptId.ToString().Length < 19);
         }
     
+    }
+
+    //Test Class to Valdidate Generated DescriptionIds
+    [TestClass]
+    public class GenerateDescriptionId_UnitTests
+    {
+        long ArtificalDescriptionId = 0;
+        int ns;
+
+        [TestMethod]
+        //Generate a random DescriptionId, that can be used for the remaining tests
+        public void GenerateArtificalDescriptionId()
+        {
+            Random rnd = new Random();
+            int ns = rnd.Next(1000000, 9999999);
+            SCTIDgenerator IDgenerator = new SCTIDgenerator(ns);
+            ArtificalDescriptionId = IDgenerator.GenerateDescriptionId();
+        }
+
+        [TestMethod]
+        public void ArtificalDescriptionIdGenerated()
+        {
+            GenerateArtificalDescriptionId();
+            Assert.AreNotEqual(ArtificalDescriptionId, 0);
+        }
+
+        [TestMethod]
+        //Generate a Random ID, and check it contains the seed namespace
+        public void DescriptionIdHasNameSpace()
+        {
+            GenerateArtificalDescriptionId();
+            int containedNS = int.Parse(ArtificalDescriptionId.ToString().Substring(-9, 7));
+            Assert.IsTrue(ns == containedNS);
+        }
+
+        [TestMethod]
+        public void DescriptionIdHasCheckDigit()
+        {
+            GenerateArtificalDescriptionId();
+            Assert.IsTrue(Verhoeff.validateVerhoeff(ArtificalDescriptionId.ToString()));
+        }
+
+        [TestMethod]
+        public void DescriptionIdHasPartitionIdentifierof11()
+        {
+            GenerateArtificalDescriptionId();
+            int PartionID = int.Parse(ArtificalDescriptionId.ToString().Substring(-2, 11));
+            Assert.IsTrue(PartionID == 10);
+        }
+
+        [TestMethod]
+        public void DescriptionIdAtLeast11DigitsLong()
+        {
+            GenerateArtificalDescriptionId();
+            Assert.IsTrue(ArtificalDescriptionId.ToString().Length > 10);
+        }
+
+        [TestMethod]
+        public void DescriptionIdLessThan19DigitsLong()
+        {
+            GenerateArtificalDescriptionId();
+            Assert.IsTrue(ArtificalDescriptionId.ToString().Length < 19);
+        }
+
+    }
+
+    //Test Class to Valdidate Generated RelationshipIds
+    [TestClass]
+    public class GenerateRelationshipId_UnitTests
+    {
+        long ArtificalRelationshipId = 0;
+        int ns;
+
+        [TestMethod]
+        //Generate a random RelationshipId, that can be used for the remaining tests
+        public void GenerateArtificalRelationshipId()
+        {
+            Random rnd = new Random();
+            int ns = rnd.Next(1000000, 9999999);
+            SCTIDgenerator IDgenerator = new SCTIDgenerator(ns);
+            ArtificalRelationshipId = IDgenerator.GenerateRelationshipId();
+        }
+
+        [TestMethod]
+        public void ArtificalRelationshipIdGenerated()
+        {
+            GenerateArtificalRelationshipId();
+            Assert.AreNotEqual(ArtificalRelationshipId, 0);
+        }
+
+        [TestMethod]
+        //Generate a Random ID, and check it contains the seed namespace
+        public void RelationshipIdHasNameSpace()
+        {
+            GenerateArtificalRelationshipId();
+            int containedNS = int.Parse(ArtificalRelationshipId.ToString().Substring(-9, 7));
+            Assert.IsTrue(ns == containedNS);
+        }
+
+        [TestMethod]
+        public void RelationshipIdHasCheckDigit()
+        {
+            GenerateArtificalRelationshipId();
+            Assert.IsTrue(Verhoeff.validateVerhoeff(ArtificalRelationshipId.ToString()));
+        }
+
+        [TestMethod]
+        public void RelationshipIdHasPartitionIdentifierof12()
+        {
+            GenerateArtificalRelationshipId();
+            int PartionID = int.Parse(ArtificalRelationshipId.ToString().Substring(-2, 12));
+            Assert.IsTrue(PartionID == 10);
+        }
+
+        [TestMethod]
+        public void RelationshipIdAtLeast11DigitsLong()
+        {
+            GenerateArtificalRelationshipId();
+            Assert.IsTrue(ArtificalRelationshipId.ToString().Length > 10);
+        }
+
+        [TestMethod]
+        public void RelationshipIdLessThan19DigitsLong()
+        {
+            GenerateArtificalRelationshipId();
+            Assert.IsTrue(ArtificalRelationshipId.ToString().Length < 19);
+        }
+
     }
 
 }

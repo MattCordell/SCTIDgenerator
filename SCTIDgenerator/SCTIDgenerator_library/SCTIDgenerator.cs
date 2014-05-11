@@ -40,5 +40,15 @@ namespace SCTIDgenerator_library
         {
             throw new NotImplementedException();
         }
+
+        public long GenerateDescriptionId()
+        {
+            throw new NotImplementedException();
+        }
+
+        public long GenerateRelationshipId()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
