@@ -123,19 +123,30 @@ namespace UnitTests_SCTIDgenerator
         
         public void SelfValidateVerhoeff(string c)
         {            
-            Assert.IsTrue(SCTIDgenerator_library.Verhoeff.validateVerhoeff(c));
+            Assert.IsTrue(Verhoeff.validateVerhoeff(c));
         }
 
         [TestMethod]
         public void ValidateAKnownVerhoeff()
         {
-            Assert.IsTrue(false);
+            //known SCTID = 48176007 has check digit 7.
+            //all other check digits should fail...
+            for (int i = 0; i < 9; i++)
+            {
+                if (i != 7 && Verhoeff.validateVerhoeff("4817600"+i))
+                {
+                    Assert.Fail();
+                }
+            }           
+            //... But pass when 7
+                Assert.IsTrue(Verhoeff.validateVerhoeff("48176007"));       
         }
 
         [TestMethod]
         public void GenerateAKnownVerhoeff()
         {
-            Assert.IsTrue(false);
+            //known SCTID = 48176007 has check digit 7.4817600 should generate same check digit
+            Assert.IsTrue("7" == Verhoeff.generateVerhoeff("4817600"));            
         }
     }
 
@@ -146,35 +157,27 @@ namespace UnitTests_SCTIDgenerator
         public void SelfCheckRandomSeed()
         {
             Random rnd = new Random();
-            int seed = rnd.Next(int.MaxValue);
-            CheckVerhoefferiseIsReproducible(seed);
-
-
+            string seed = rnd.Next(int.MaxValue).ToString();           
+            Assert.IsTrue(Verhoeff.generateVerhoeff(seed) == Verhoeff.generateVerhoeff(seed));
         }
-
-        private void CheckVerhoefferiseIsReproducible(int seed)
-        {
-
-            long hoffedValue;
-            SCTIDgenerator IDgenerator = new SCTIDgenerator(seed);
-
-            //first crack at generating a checkdigit for the seed
-            hoffedValue = IDgenerator.Verhoefferise(seed.ToString());
-            char firstPass = hoffedValue.ToString()[hoffedValue.ToString().Length - 1];
-            //second crack at generating a checkdigit for the seed
-            hoffedValue = IDgenerator.Verhoefferise(seed.ToString());
-            char secondPass = hoffedValue.ToString()[hoffedValue.ToString().Length - 1];
-
-            //the two check digits generated should be identical.
-            Assert.Equals(firstPass, secondPass);
-        }
+       
 
         [TestMethod]
         public void CheckAgainstKnownList()
         {
-            //populate array with top level SNOMED CTconcepts.
-            //cycle through, generating check didgits
-            Assert.IsTrue(false);
+
+            //cycle through ExistingSNOMEDCTIds, checking check didgits
+            //ExistingSNOMEDCTIds consist of ConceptIds for all top level concept in Jan 2014, and associate DescriptionIds, and Defining ReflationshipIds
+            string[] ExistingSNOMEDCTIds = {"48176007","71388002","78621006","105590001","123037004","123038009","243796009","254291000","260787004","272379006","308916002","362981000","363787002","370115009","373873005","404684003","410607006","419891008","900000000000441003","80268017","118588011","130458013","169710016","189056010","190895018","291656011","364629017","378526013","388424018","388425017","388426016","388427013","388428015","407503013","452305016","470725012","482116013","486911019","491692013","573283013","645163010","652584013","724699017","724710013","754754016","769964015","785715019","811548016","819582012","1199173018","1212316016","1225256013","1458019012","2148514019","2156578010","2466059019","2472261015","2571651013","2573280016","2575824015","2576552011","2579706018","2609236017","2610738018","2615979011","2616135016","108642591000036118","900000000000951010","900000000000952015","144487025","144519022","144611029","145047021","145312020","145315022","146186027","146315028","146410021","146531021","146535028","146538026","1019504021","1019522024","1713837029","2472459022","2565789025","2840535024","3792608028"};
+            foreach (var Id in ExistingSNOMEDCTIds)
+            {
+                if (Verhoeff.validateVerhoeff(Id) != true)
+                {
+                    Assert.Fail(Id + " failed Verhoeff validation");
+                    break;
+                }                
+            }
+            Assert.IsFalse(false);
         }
 
         

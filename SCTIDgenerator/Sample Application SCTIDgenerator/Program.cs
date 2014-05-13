@@ -22,6 +22,7 @@ namespace Sample_Application_SCTIDgenerator
 
             string beep = codeString.Substring(codeString.Length - 6, 3);
             Console.WriteLine("This should be 456 : " + beep);
+            Console.WriteLine("48176007 has check digit = " + Verhoeff.generateVerhoeff("4817600"));
 
             Console.ReadKey();
         }
