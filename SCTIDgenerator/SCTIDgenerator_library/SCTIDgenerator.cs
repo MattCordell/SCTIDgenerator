@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace SCTIDgenerator_library
-{
+{    
     public class SCTIDgenerator
     {
         private int ExtenstionNameSpace;
+        private SCTIDRepo Repo = new SCTIDRepo();
 
         //All extensions require a namespace to seed SCTIDgenerator
         public SCTIDgenerator(int ns)

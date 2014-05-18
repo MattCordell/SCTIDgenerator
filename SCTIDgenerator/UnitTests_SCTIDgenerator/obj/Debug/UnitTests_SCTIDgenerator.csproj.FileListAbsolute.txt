@@ -5,3 +5,7 @@ C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\UnitTests_SCTIDgene
 C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\UnitTests_SCTIDgenerator\bin\Debug\SCTIDgenerator_library.pdb
 C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\UnitTests_SCTIDgenerator\obj\Debug\UnitTests_SCTIDgenerator.dll
 C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\UnitTests_SCTIDgenerator\obj\Debug\UnitTests_SCTIDgenerator.pdb
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\UnitTests_SCTIDgenerator\bin\Debug\x64\SQLite.Interop.dll
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\UnitTests_SCTIDgenerator\bin\Debug\x86\SQLite.Interop.dll
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\UnitTests_SCTIDgenerator\bin\Debug\System.Data.SQLite.dll
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\UnitTests_SCTIDgenerator\bin\Debug\System.Data.SQLite.xml

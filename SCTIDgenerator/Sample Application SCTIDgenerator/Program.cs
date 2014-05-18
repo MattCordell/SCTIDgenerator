@@ -19,11 +19,20 @@ namespace Sample_Application_SCTIDgenerator
             Console.WriteLine("RelationshipId =" + foo.GenerateRelationshipId());
 
             string codeString  = "0123456789";
-
+   
             string beep = codeString.Substring(codeString.Length - 6, 3);
             Console.WriteLine("This should be 456 : " + beep);
             Console.WriteLine("48176007 has check digit = " + Verhoeff.generateVerhoeff("4817600"));
 
+            SCTIDRepo Repo = new SCTIDRepo();
+            Repo.ReserveId("100001234567101");
+            Repo.ReserveId("110001234567111");
+            Repo.ReserveId("12000341234567121");
+
+            Console.WriteLine("Next Concept Bean: " + Repo.GetNextBean("Concept").ToString());
+            Console.WriteLine("Next Description Bean: " + Repo.GetNextBean("Description").ToString());
+            Console.WriteLine("Next Relationship Bean: " + Repo.GetNextBean("Relationship").ToString());
+            
             Console.ReadKey();
         }
     }

@@ -6,3 +6,7 @@ C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\Sample Application 
 C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\Sample Application SCTIDgenerator\obj\Debug\Sample Application SCTIDgenerator.pdb
 C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\Sample Application SCTIDgenerator\bin\Debug\SCTIDgenerator_library.dll
 C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\Sample Application SCTIDgenerator\bin\Debug\SCTIDgenerator_library.pdb
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\Sample Application SCTIDgenerator\bin\Debug\x64\SQLite.Interop.dll
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\Sample Application SCTIDgenerator\bin\Debug\x86\SQLite.Interop.dll
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\Sample Application SCTIDgenerator\bin\Debug\System.Data.SQLite.dll
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\Sample Application SCTIDgenerator\bin\Debug\System.Data.SQLite.xml
