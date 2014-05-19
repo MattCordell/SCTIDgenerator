@@ -27,13 +27,18 @@ namespace Sample_Application_SCTIDgenerator
             SCTIDRepo Repo = new SCTIDRepo();
             Repo.ReserveId("100001234567101");
             Repo.ReserveId("110001234567111");
-            Repo.ReserveId("12000341234567121");
+            Repo.ReserveId("120001234567121");
 
-            Console.WriteLine("Next Concept Bean: " + Repo.GetNextBean("Concept").ToString());
-            Console.WriteLine("Next Description Bean: " + Repo.GetNextBean("Description").ToString());
-            Console.WriteLine("Next Relationship Bean: " + Repo.GetNextBean("Relationship").ToString());
-            
+            Console.WriteLine("Next Concept Bean: " + Repo.GetNextConceptBean(1234567).ToString());
+            Console.WriteLine("Next Description Bean: " + Repo.GetNextDescriptionBean(1234567).ToString());
+            Console.WriteLine("Next Relationship Bean: " + Repo.GetNextRelationshipBean(1234567).ToString());
+
+            Repo.DumpRepository();
+            Console.WriteLine("Repo Dumped.");
+
             Console.ReadKey();
         }
+
+
     }
 }

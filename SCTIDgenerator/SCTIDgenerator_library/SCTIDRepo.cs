@@ -59,15 +59,17 @@ namespace SCTIDgenerator_library
                 }
             }
 
-            public int GetNextBean(string p)
+            //'Beans' are the bit before a namespace, kinda like a counter for the SCTIDs.
+            //This method returns the next 'bean' available for a given namespace and idType
+            public int GetNextBean(string idtype, int ns)
             {
-                string MaxBeanQuery = "select max(Bean) from SCTIDs where IdType = @IDType;";
-
+                string MaxBeanQuery = "select max(Bean) from SCTIDs where IdType = @IDType and NameSpace = @NameSpace;";                
                 using (SQLiteConnection cnn = new SQLiteConnection(connectionString))
                 {
                     using (SQLiteCommand cmd = new SQLiteCommand(MaxBeanQuery,cnn))
                     {
-                        cmd.Parameters.AddWithValue("@IDType", p);
+                        cmd.Parameters.AddWithValue("@IDType", idtype);
+                        cmd.Parameters.AddWithValue("@NameSpace", ns);
                         cnn.Open();
                         var MaxCurrentBean = cmd.ExecuteScalar();                        
                         
@@ -76,6 +78,27 @@ namespace SCTIDgenerator_library
                     }                    
                 }
             }
+
+            #region SimplifedMethods for calling GetNextBean()
+            //These methods simply call NextBean, but don't expose the need for passing the IdType
+            //IdType is hardcoded per method
+
+            public int GetNextConceptBean(int ns)
+            {
+             return GetNextBean("Concept",ns);
+            }
+
+            public int GetNextDescriptionBean(int ns)
+            {
+             return GetNextBean("Description",ns);
+            }
+
+            public int GetNextRelationshipBean(int ns)
+            {
+             return GetNextBean("Relationship",ns);
+            }
+
+            #endregion
 
             //takes an ID and inserts into the repo. Bean,Namespace, and IDtype Extracted from id
             public void ReserveId(string id)
@@ -117,6 +140,45 @@ namespace SCTIDgenerator_library
                     }
                 }
             }
+
+            //Dump the Repo, for whatever reason;
+            public void DumpRepository()
+            {
+                var getRepoContents = "select SCTID from SCTIDs;";
+
+                using (SQLiteConnection cnn = new SQLiteConnection(connectionString))
+                {
+                    using (SQLiteCommand cmd = new SQLiteCommand(getRepoContents, cnn))
+                    {
+                        cnn.Open();
+                        using (SQLiteDataReader RepoContents = cmd.ExecuteReader())
+                        {                            
+                            System.IO.Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+                            using (System.IO.StreamWriter file = new System.IO.StreamWriter("SCTID_Repository_Dump.txt",false))
+                            {
+                            while (RepoContents.Read())
+                                {
+                                    file.WriteLine(RepoContents.GetValue(0).ToString());                                
+                                }
+                            }
+                        }                        
+                    }
+                }
+            }
+
+
+            //method for Importint a list of SCTIds previously assigned, into the Repo
+            public void ImportAllocatedSCTIDs(string AllocatedIdFiles)
+            {
+                var UsedIds = File.ReadAllLines(AllocatedIdFiles);
+                SCTIDRepo Repo = new SCTIDRepo();
+
+                foreach (var id in UsedIds)
+                {
+                    Repo.ReserveId(id);
+                }                
+            }
+
 
         }
 }
