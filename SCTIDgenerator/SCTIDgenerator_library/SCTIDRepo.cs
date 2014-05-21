@@ -22,6 +22,7 @@ namespace SCTIDgenerator_library
         {
             private const string RepoFile = "SCTIDRepo.db";
             private string connectionString = "data source=" + RepoFile + ";Version=3;Cache Size=2000;Page Size=32768;Synchronous=OFF;Journal Mode=WAL;";
+            private string RepDumpFile = "SCTID_Repository_Dump.txt";
 
             //Constructor will set the current Directory to launch directory, and make sure a DB exists
             public SCTIDRepo()
@@ -73,32 +74,11 @@ namespace SCTIDgenerator_library
                         cnn.Open();
                         var MaxCurrentBean = cmd.ExecuteScalar();                        
                         
-                        int NextBean = int.Parse(MaxCurrentBean.ToString()) + 1;
+                        int NextBean = int.Parse(MaxCurrentBean) + 1;
                         return NextBean;
                     }                    
                 }
             }
-
-            #region SimplifedMethods for calling GetNextBean()
-            //These methods simply call NextBean, but don't expose the need for passing the IdType
-            //IdType is hardcoded per method
-
-            public int GetNextConceptBean(int ns)
-            {
-             return GetNextBean("Concept",ns);
-            }
-
-            public int GetNextDescriptionBean(int ns)
-            {
-             return GetNextBean("Description",ns);
-            }
-
-            public int GetNextRelationshipBean(int ns)
-            {
-             return GetNextBean("Relationship",ns);
-            }
-
-            #endregion
 
             //takes an ID and inserts into the repo. Bean,Namespace, and IDtype Extracted from id
             public void ReserveId(string id)
@@ -154,7 +134,7 @@ namespace SCTIDgenerator_library
                         using (SQLiteDataReader RepoContents = cmd.ExecuteReader())
                         {                            
                             System.IO.Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
-                            using (System.IO.StreamWriter file = new System.IO.StreamWriter("SCTID_Repository_Dump.txt",false))
+                            using (System.IO.StreamWriter file = new System.IO.StreamWriter(RepDumpFile, false))
                             {
                             while (RepoContents.Read())
                                 {

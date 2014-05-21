@@ -34,37 +34,37 @@ namespace SCTIDgenerator_library
 
         //takes string p, and appends a check digit., and converts it to a long
         //p will be a cocatentation of rnd+namespace+partitionId
-        public long Verhoefferise(string p)
+        internal long Verhoefferise(string p)
         {
             string VerhoefferisedResult;
             VerhoefferisedResult = p + Verhoeff.generateVerhoeff(p);
             return long.Parse(VerhoefferisedResult);
         }
 
-        //Generate a ConceptId. Ultimately needs to validate against some repo of used Ids
+        //Generate a ConceptId, based on the intialising NameSpace
         public long GenerateConceptId()
         {
-            Random rnd = new Random();
-            int foo = rnd.Next(1,99999999);
-            string generatedIdPart = foo.ToString() + ExtenstionNameSpace.ToString() + "10";            
+            int foo = Repo.GetNextBean("Concept", ExtenstionNameSpace);
+            string generatedIdPart = foo.ToString() + ExtenstionNameSpace.ToString() + "10";
+            
             return Verhoefferise(generatedIdPart);
         }
 
-        //Generate a ConceptId. Ultimately needs to validate against some repo of used Ids
+        //Generate a ConceptId, based on the intialising NameSpace
         public long GenerateDescriptionId()
         {
-            Random rnd = new Random();
-            int foo = rnd.Next(1, 99999999);
+            int foo = Repo.GetNextBean("Description", ExtenstionNameSpace);
             string generatedIdPart = foo.ToString() + ExtenstionNameSpace.ToString() + "11";
+
             return Verhoefferise(generatedIdPart);
         }
 
-        //Generate a ConceptId. Ultimately needs to validate against some repo of used Ids
+        //Generate a ConceptId, based on the intialising NameSpace
         public long GenerateRelationshipId()
         {
-            Random rnd = new Random();
-            int foo = rnd.Next(1, 99999999);
+            int foo = Repo.GetNextBean("Relationship", ExtenstionNameSpace);
             string generatedIdPart = foo.ToString() + ExtenstionNameSpace.ToString() + "12";
+
             return Verhoefferise(generatedIdPart);
         }
     }

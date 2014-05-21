@@ -9,3 +9,8 @@ C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\UnitTests_SCTIDgene
 C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\UnitTests_SCTIDgenerator\bin\Debug\x86\SQLite.Interop.dll
 C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\UnitTests_SCTIDgenerator\bin\Debug\System.Data.SQLite.dll
 C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\UnitTests_SCTIDgenerator\bin\Debug\System.Data.SQLite.xml
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\UnitTests_SCTIDgenerator\bin\Debug\UnitTests_SCTIDgenerator.dll.config
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\UnitTests_SCTIDgenerator\bin\Debug\EntityFramework.dll
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\UnitTests_SCTIDgenerator\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\UnitTests_SCTIDgenerator\bin\Debug\EntityFramework.xml
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\UnitTests_SCTIDgenerator\bin\Debug\EntityFramework.SqlServer.xml

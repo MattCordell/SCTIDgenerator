@@ -15,8 +15,8 @@ namespace UnitTests_SCTIDgenerator
     {
         //Repo database file. Must be same as in class.        
         private const string RepoFile = "SCTIDRepo.db";
-        private const string RepoDump = "AllocatedSCTIDs.txt";
-        private string connectionString = "data source=" + RepoFile + ";Version=3;Cache Size=2000;Page Size=32768;Synchronous=OFF;Journal Mode=WAL;";
+        private const string RepoDump = "SCTID_Repository_Dump.txt";
+        private string connectionString = "data source=" + RepoFile + ";Version=3;Cache Size=2000;Page Size=32768;Synchronous=OFF;Journal Mode=WAL;";        
 
         [TestMethod]
         public void RepoIsCreatedSuccessfuly()
@@ -46,9 +46,10 @@ namespace UnitTests_SCTIDgenerator
         public void AbleToGetNextConceptBean()
         {
             SCTIDRepo Repo = new SCTIDRepo();
-            int NextBean = Repo.GetNextConceptBean(1234567);
+            Repo.ReserveId("88888881234567101");
+            int NextBean = Repo.GetNextBean("Concept",1234567);
 
-            Assert.AreSame(1, NextBean);           
+            Assert.AreSame(8888889, NextBean);           
         }
 
         [TestMethod]
@@ -93,23 +94,17 @@ namespace UnitTests_SCTIDgenerator
             SCTIDRepo Repo = new SCTIDRepo();
 
             string usedIds = "TestFileDump.txt";
-            File.WriteAllText(usedIds, "999991234567121");
-
+            Random foo = new Random();
+            int RandomBean = foo.Next(999999);
+            
+            //write generate a random bean, and write a bogus ID to the file.
+            File.WriteAllText(usedIds, RandomBean + "1234567121");
+            
+            //import that file
             Repo.ImportAllocatedSCTIDs(usedIds);
-
-            string RepoSizeQry = "select count(*) from SCTIDs;";
-            int RepoSize;
-
-            using (SQLiteConnection cnn = new SQLiteConnection(connectionString))
-            {
-                using (SQLiteCommand cmd = new SQLiteCommand(RepoSizeQry, cnn))
-                {
-                    cnn.Open();
-                    RepoSize = int.Parse(cmd.ExecuteScalar().ToString());
-                }
-            }
-
-            Assert.IsTrue(RepoSize > 0);
+            //and get the next been..           
+            //which should be 1 more than the random bean inserted above.
+            Assert.IsTrue(Repo.GetNextBean("Relationship", 1234567) == RandomBean+1);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Sample_Application_SCTIDgenerator
             Console.WriteLine("ConceptId ="+foo.GenerateConceptId());
             Console.WriteLine("DescriptionId =" + foo.GenerateDescriptionId());
             Console.WriteLine("RelationshipId =" + foo.GenerateRelationshipId());
-
+            
             string codeString  = "0123456789";
    
             string beep = codeString.Substring(codeString.Length - 6, 3);
@@ -28,10 +28,6 @@ namespace Sample_Application_SCTIDgenerator
             Repo.ReserveId("100001234567101");
             Repo.ReserveId("110001234567111");
             Repo.ReserveId("120001234567121");
-
-            Console.WriteLine("Next Concept Bean: " + Repo.GetNextConceptBean(1234567).ToString());
-            Console.WriteLine("Next Description Bean: " + Repo.GetNextDescriptionBean(1234567).ToString());
-            Console.WriteLine("Next Relationship Bean: " + Repo.GetNextRelationshipBean(1234567).ToString());
 
             Repo.DumpRepository();
             Console.WriteLine("Repo Dumped.");

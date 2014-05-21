@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SCTIDgenerator_library;
+using System;
 using System.Collections.Generic;
 
 namespace UnitTests_SCTIDgenerator
@@ -51,7 +51,6 @@ namespace UnitTests_SCTIDgenerator
                 ValidateARandomlySizedNameSpace(ns);
                 //increment up.
             }
-
         }
 
         private void ValidateARandomlySizedNameSpace(int ns)
@@ -204,7 +203,12 @@ namespace UnitTests_SCTIDgenerator
         [TestMethod]
         public void ArtificalConceptIdGenerated()
         {
-            GenerateArtificalConceptId();
+            //GenerateArtificalConceptId();
+            Random rnd = new Random();
+            ns = rnd.Next(1000000, 9999999);
+            SCTIDgenerator IDgenerator = new SCTIDgenerator(ns);
+            ArtificalConceptId = IDgenerator.GenerateConceptId();
+
             Assert.AreNotEqual(ArtificalConceptId, 0);  
         }
 
