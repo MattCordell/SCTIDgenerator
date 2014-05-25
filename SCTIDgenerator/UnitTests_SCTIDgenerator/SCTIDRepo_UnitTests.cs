@@ -15,8 +15,7 @@ namespace UnitTests_SCTIDgenerator
     {
         //Repo database file. Must be same as in class.        
         private const string RepoFile = "SCTIDRepo.db";
-        private const string RepoDump = "SCTID_Repository_Dump.txt";
-        private string connectionString = "data source=" + RepoFile + ";Version=3;Cache Size=2000;Page Size=32768;Synchronous=OFF;Journal Mode=WAL;";        
+        private const string RepoDump = "SCTID_Repository_Dump.txt";       
 
         [TestMethod]
         public void RepoIsCreatedSuccessfuly()
@@ -26,7 +25,7 @@ namespace UnitTests_SCTIDgenerator
             {
                 File.Delete(RepoFile);
             }
-            SCTIDRepo Repo = new SCTIDRepo();
+            SCTIDRepo Repo = new SCTIDRepo(1234567);
             Assert.IsTrue(File.Exists(RepoFile));
         }
 
@@ -45,18 +44,19 @@ namespace UnitTests_SCTIDgenerator
         [TestMethod]
         public void AbleToGetNextConceptBean()
         {
-            SCTIDRepo Repo = new SCTIDRepo();
+            SCTIDRepo Repo = new SCTIDRepo(1234567);
+
             Repo.ReserveId("88888881234567101");
             int NextBean = Repo.GetNextBean("Concept",1234567);
 
-            Assert.AreSame(8888889, NextBean);           
+            Assert.AreEqual(8888889, NextBean);           
         }
 
         [TestMethod]
         public void AbleToReserveConceptId()
         {
             var ID = "11234567100";
-            SCTIDRepo Repo = new SCTIDRepo();
+            SCTIDRepo Repo = new SCTIDRepo(1234567);
             try
             {
                 Repo.ReserveId(ID);
@@ -76,7 +76,7 @@ namespace UnitTests_SCTIDgenerator
             {
                 File.Delete(RepoDump);
             }
-            SCTIDRepo Repo = new SCTIDRepo();
+            SCTIDRepo Repo = new SCTIDRepo(1234567);
 
             Repo.DumpRepository();
 
@@ -91,7 +91,7 @@ namespace UnitTests_SCTIDgenerator
             {
                 File.Delete(RepoDump);
             }
-            SCTIDRepo Repo = new SCTIDRepo();
+            SCTIDRepo Repo = new SCTIDRepo(1234567);
 
             string usedIds = "TestFileDump.txt";
             Random foo = new Random();

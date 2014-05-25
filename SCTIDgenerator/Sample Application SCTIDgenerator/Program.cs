@@ -24,7 +24,7 @@ namespace Sample_Application_SCTIDgenerator
             Console.WriteLine("This should be 456 : " + beep);
             Console.WriteLine("48176007 has check digit = " + Verhoeff.generateVerhoeff("4817600"));
 
-            SCTIDRepo Repo = new SCTIDRepo();
+            SCTIDRepo Repo = new SCTIDRepo(1234567);
             Repo.ReserveId("100001234567101");
             Repo.ReserveId("110001234567111");
             Repo.ReserveId("120001234567121");

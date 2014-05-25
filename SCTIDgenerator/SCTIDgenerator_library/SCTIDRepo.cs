@@ -25,7 +25,7 @@ namespace SCTIDgenerator_library
             private string RepDumpFile = "SCTID_Repository_Dump.txt";
 
             //Constructor will set the current Directory to launch directory, and make sure a DB exists
-            public SCTIDRepo()
+            public SCTIDRepo(int initialiserNameSpace)
             {
                 System.IO.Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
 
@@ -40,10 +40,7 @@ namespace SCTIDgenerator_library
                                                         CREATE INDEX IF NOT EXISTS ix_SCTIDs_SCTID ON SCTIDs(SCTID);
                                                         CREATE INDEX IF NOT EXISTS ix_SCTIDs_Bean ON SCTIDs(Bean);
                                                         CREATE INDEX IF NOT EXISTS ix_SCTIDs_NameSpace ON SCTIDs(NameSpace);
-                                                        CREATE INDEX IF NOT EXISTS ix_SCTIDs_IdType ON SCTIDs(IdType);
-                                                        INSERT INTO SCTIDs VALUES (01234567101,0,1234567,'Concept');
-                                                        INSERT INTO SCTIDs VALUES (01234567111,0,1234567,'Description');
-                                                        INSERT INTO SCTIDs VALUES (01234567121,0,1234567,'Relationship');";
+                                                        CREATE INDEX IF NOT EXISTS ix_SCTIDs_IdType ON SCTIDs(IdType);";
                         using (SQLiteConnection cnn = new SQLiteConnection(connectionString))
                         {
                             using (SQLiteCommand cmd = new SQLiteCommand(CreateTableSchema, cnn))
@@ -58,6 +55,31 @@ namespace SCTIDgenerator_library
                         Console.WriteLine("{0} Problem setting up the database:", e);
                     }
                 }
+                
+                //Check if the DB has been initialised for the given namesapce.
+                //(initialising involves seeding with 3 SCTIDs having a Bean of 0
+                
+                string CheckIfInitialisedForNameSpace = "select count(*) from SCTIDs where NameSpace = @NameSpace";
+                using (SQLiteConnection cnn = new SQLiteConnection(connectionString))
+                {
+                    using (SQLiteCommand cmd = new SQLiteCommand(CheckIfInitialisedForNameSpace, cnn))
+                    {
+                        cmd.Parameters.AddWithValue("@NameSpace", initialiserNameSpace);
+                        cnn.Open();
+                        var NumberOfEntriesForNameSpace = int.Parse(cmd.ExecuteScalar().ToString());
+                        
+                        //There should at least 3. More if the db has been used.
+                        if (NumberOfEntriesForNameSpace < 3)
+                        {
+                            //initialise with same base zero SCTIDs for the given namespace
+                            ReserveId("0" + initialiserNameSpace + "101");
+                            ReserveId("0" + initialiserNameSpace + "111");
+                            ReserveId("0" + initialiserNameSpace + "121"); 
+                        }
+                    }
+                }
+
+
             }
 
             //'Beans' are the bit before a namespace, kinda like a counter for the SCTIDs.
@@ -72,7 +94,7 @@ namespace SCTIDgenerator_library
                         cmd.Parameters.AddWithValue("@IDType", idtype);
                         cmd.Parameters.AddWithValue("@NameSpace", ns);
                         cnn.Open();
-                        var MaxCurrentBean = cmd.ExecuteScalar();                        
+                        var MaxCurrentBean = cmd.ExecuteScalar().ToString();                        
                         
                         int NextBean = int.Parse(MaxCurrentBean) + 1;
                         return NextBean;
@@ -150,12 +172,11 @@ namespace SCTIDgenerator_library
             //method for Importint a list of SCTIds previously assigned, into the Repo
             public void ImportAllocatedSCTIDs(string AllocatedIdFiles)
             {
-                var UsedIds = File.ReadAllLines(AllocatedIdFiles);
-                SCTIDRepo Repo = new SCTIDRepo();
+                var UsedIds = File.ReadAllLines(AllocatedIdFiles);               
 
                 foreach (var id in UsedIds)
                 {
-                    Repo.ReserveId(id);
+                    ReserveId(id);
                 }                
             }
 

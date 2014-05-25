@@ -10,12 +10,13 @@ namespace SCTIDgenerator_library
     public class SCTIDgenerator
     {
         private int ExtenstionNameSpace;
-        private SCTIDRepo Repo = new SCTIDRepo();
+        private SCTIDRepo Repo;
 
         //All extensions require a namespace to seed SCTIDgenerator
         public SCTIDgenerator(int ns)
         {
             ExtenstionNameSpace = ns;
+            Repo = new SCTIDRepo(ExtenstionNameSpace);
         }
         
         //Validate the Set Namespace is 7 digits exactly.
