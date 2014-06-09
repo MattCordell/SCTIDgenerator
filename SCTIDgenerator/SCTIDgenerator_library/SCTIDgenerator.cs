@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 
 namespace SCTIDgenerator_library
-{    
+{
     public class SCTIDgenerator
     {
         private int ExtenstionNameSpace;
         private SCTIDRepo Repo;
 
-        //All extensions require a namespace to seed SCTIDgenerator
+        // All extensions require a namespace to seed SCTIDgenerator
         public SCTIDgenerator(int ns)
         {
             ExtenstionNameSpace = ns;
             Repo = new SCTIDRepo(ExtenstionNameSpace);
         }
-        
+
         //Validate the Set Namespace is 7 digits exactly.
         public bool IsValidNameSpace()
         {
@@ -37,6 +37,7 @@ namespace SCTIDgenerator_library
         //p will be a cocatentation of rnd+namespace+partitionId
         internal long Verhoefferise(string p)
         {
+            string AAA = "bean";
             string VerhoefferisedResult;
             VerhoefferisedResult = p + Verhoeff.generateVerhoeff(p);
             return long.Parse(VerhoefferisedResult);
@@ -47,7 +48,7 @@ namespace SCTIDgenerator_library
         {
             int foo = Repo.GetNextBean("Concept", ExtenstionNameSpace);
             string generatedIdPart = foo.ToString() + ExtenstionNameSpace.ToString() + "10";
-            
+
             return Verhoefferise(generatedIdPart);
         }
 
@@ -64,7 +65,7 @@ namespace SCTIDgenerator_library
         public long GenerateRelationshipId()
         {
             int foo = Repo.GetNextBean("Relationship", ExtenstionNameSpace);
-            string generatedIdPart = foo.ToString() + ExtenstionNameSpace.ToString() + "12";
+            string generatedIdPart = foo.ToString() + ExtenstionNameSpace.ToString() + "12"; // COMMENT: BH - Use stringBuilder instead - http://stackoverflow.com/questions/73883/string-vs-stringbuilder you know this one
 
             return Verhoefferise(generatedIdPart);
         }
