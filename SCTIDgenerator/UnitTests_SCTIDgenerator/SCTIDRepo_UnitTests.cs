@@ -15,7 +15,7 @@ namespace UnitTests_SCTIDgenerator
     {
         //Repo database file. Must be same as in class.        
         private const string RepoFile = "SCTIDRepo.db";
-        private const string RepoDump = "SCTID_Repository_Dump.txt";       
+        private const string RepoDump = "SCTID_Repository_Dump.txt";
 
         [TestMethod]
         public void RepoIsCreatedSuccessfuly()
@@ -47,9 +47,9 @@ namespace UnitTests_SCTIDgenerator
             SCTIDRepo Repo = new SCTIDRepo(1234567);
 
             Repo.ReserveId("88888881234567101");
-            int NextBean = Repo.GetNextBean("Concept",1234567);
+            int NextBean = Repo.GetNextBean("Concept", 1234567);
 
-            Assert.AreEqual(8888889, NextBean);           
+            Assert.AreEqual(8888889, NextBean);
         }
 
         [TestMethod]
@@ -64,7 +64,7 @@ namespace UnitTests_SCTIDgenerator
             }
             catch (Exception)
             {
-                Assert.Fail("Unable to reserve ID: {0}", ID);          
+                Assert.Fail("Unable to reserve ID: {0}", ID);
             }
         }
 
@@ -96,15 +96,15 @@ namespace UnitTests_SCTIDgenerator
             string usedIds = "TestFileDump.txt";
             Random foo = new Random();
             int RandomBean = foo.Next(999999);
-            
+
             //write generate a random bean, and write a bogus ID to the file.
             File.WriteAllText(usedIds, RandomBean + "1234567121");
-            
+
             //import that file
             Repo.ImportAllocatedSCTIDs(usedIds);
             //and get the next been..           
             //which should be 1 more than the random bean inserted above.
-            Assert.IsTrue(Repo.GetNextBean("Relationship", 1234567) == RandomBean+1);
+            Assert.IsTrue(Repo.GetNextBean("Relationship", 1234567) == RandomBean + 1);
         }
     }
 }
