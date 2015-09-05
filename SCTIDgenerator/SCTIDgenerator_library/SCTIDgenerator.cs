@@ -37,7 +37,6 @@ namespace SCTIDgenerator_library
         //p will be a cocatentation of rnd+namespace+partitionId
         internal long Verhoefferise(string p)
         {
-            string AAA = "bean";
             string VerhoefferisedResult;
             VerhoefferisedResult = p + Verhoeff.generateVerhoeff(p);
             return long.Parse(VerhoefferisedResult);
