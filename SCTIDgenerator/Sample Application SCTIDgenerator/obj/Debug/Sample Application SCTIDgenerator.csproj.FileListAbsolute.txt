@@ -10,3 +10,5 @@ C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\Sample Application 
 C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\Sample Application SCTIDgenerator\bin\Debug\x86\SQLite.Interop.dll
 C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\Sample Application SCTIDgenerator\bin\Debug\System.Data.SQLite.dll
 C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\Sample Application SCTIDgenerator\bin\Debug\System.Data.SQLite.xml
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\Sample Application SCTIDgenerator\bin\Debug\Sample Application SCTIDgenerator.exe.CodeAnalysisLog.xml
+C:\Users\Doug\Documents\GitHub\SCTIDgenerator\SCTIDgenerator\Sample Application SCTIDgenerator\bin\Debug\Sample Application SCTIDgenerator.exe.lastcodeanalysissucceeded
