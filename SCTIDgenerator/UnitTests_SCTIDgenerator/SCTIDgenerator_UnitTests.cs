@@ -9,12 +9,9 @@ namespace UnitTests_SCTIDgenerator
     // COMMENT: BH - Don't like multiple classes in the one file. Separate the below classes into separate files with appropriate names
     public class IsValidNameSpace_UnitTests
     {
-        [TestMethod]
-        // COMMENT: BH - This is a little confusing, are you testing the Validation of a correct namespace or validating that it returns false
-        // Be a little more descriptive with Unit Test names i.e. create two test 1 for valid 1 for invalid ValidateShortNameSpaceWithInvalidNamespace - ValidateShortNameSpaceWithValidNamespace
-        // Maybe you are doing this with the Validate7DigitNameSpace method but its still confusing
-        // Unit testing names need to be more descriptive so at glance devs know exactly what is being tested
-        public void ValidateShortNameSpace()
+        [TestMethod]       
+        // Assert that a namespace of only 6 characters (too short) will fail validation
+        public void Validate_TooShortNameSpace()
         {
             SCTIDgenerator IDgenerator = new SCTIDgenerator(123456);
             bool validNameSpace = IDgenerator.IsValidNameSpace();
@@ -22,20 +19,22 @@ namespace UnitTests_SCTIDgenerator
         }
 
         [TestMethod]
-        // COMMENT: BH - Same as above - valid / invalid
-        public void ValidateLongNameSpace()
+        // Assert that a namespace of 8 characters (too long) will fail validation
+        public void Validate_TooLongNameSpace()
         {
             SCTIDgenerator IDgenerator = new SCTIDgenerator(12345678);
             bool validNameSpace = IDgenerator.IsValidNameSpace();
             Assert.IsFalse(validNameSpace);
         }
 
+
         [TestMethod]
-        public void Validate7DigitNameSpace()
+        // Assert that a namespace of 7 characters (just right) will fail validation
+        public void Validate_CorrectNameSpace()
         {
             SCTIDgenerator IDgenerator = new SCTIDgenerator(1234567);
             bool validNameSpace = IDgenerator.IsValidNameSpace();
-            Assert.IsTrue(validNameSpace);
+            Assert.IsTrue(validNameSpace);           
         }
 
         [TestMethod]
@@ -44,8 +43,7 @@ namespace UnitTests_SCTIDgenerator
             // variable for random simulated namespace
             int ns;
             // rnd generates a random ns of required size
-            Random rnd = new Random();
-
+            Random rnd = new Random();            
             //generate and test namespaces from 1 up to "cap"
             //cap is max int value / 10 (so as not to max out when multiplied by 10)
             //ideally a rand(long,long) would be nice. But this will do for a test
@@ -87,8 +85,8 @@ namespace UnitTests_SCTIDgenerator
     public class Verhoeff_UnitTests
     {
         [TestMethod]
-        //Generate randoms numers, and Generate Verhoeff and self check
-        // method loops until one of every possible candidate (i) has been tested, of j reaches 100;
+        // Generate randoms numbers, Generate Verhoeff and self check
+        // method loops until one of every possible candidate (i) has been tested or j reaches 100;
         public void SelfValidateVerhoeffs0through9()
         {
             //random
@@ -143,7 +141,7 @@ namespace UnitTests_SCTIDgenerator
                     Assert.Fail();
                 }
             }
-            //... But pass when 7
+            // ... But pass when 7
             Assert.IsTrue(Verhoeff.validateVerhoeff("48176007"));
         }
 
@@ -171,8 +169,8 @@ namespace UnitTests_SCTIDgenerator
         public void CheckAgainstKnownList()
         {
 
-            //cycle through ExistingSNOMEDCTIds, checking check didgits
-            //ExistingSNOMEDCTIds consist of ConceptIds for all top level concept in Jan 2014, and associate DescriptionIds, and Defining ReflationshipIds
+            // Cycle through ExistingSNOMEDCTIds, checking check didgits
+            // ExistingSNOMEDCTIds consist of ConceptIds for all top level concept in Jan 2014, and associate DescriptionIds, and Defining ReflationshipIds
             string[] ExistingSNOMEDCTIds = { "48176007", "71388002", "78621006", "105590001", "123037004", "123038009", "243796009", "254291000", "260787004", "272379006", "308916002", "362981000", "363787002", "370115009", "373873005", "404684003", "410607006", "419891008", "900000000000441003", "80268017", "118588011", "130458013", "169710016", "189056010", "190895018", "291656011", "364629017", "378526013", "388424018", "388425017", "388426016", "388427013", "388428015", "407503013", "452305016", "470725012", "482116013", "486911019", "491692013", "573283013", "645163010", "652584013", "724699017", "724710013", "754754016", "769964015", "785715019", "811548016", "819582012", "1199173018", "1212316016", "1225256013", "1458019012", "2148514019", "2156578010", "2466059019", "2472261015", "2571651013", "2573280016", "2575824015", "2576552011", "2579706018", "2609236017", "2610738018", "2615979011", "2616135016", "108642591000036118", "900000000000951010", "900000000000952015", "144487025", "144519022", "144611029", "145047021", "145312020", "145315022", "146186027", "146315028", "146410021", "146531021", "146535028", "146538026", "1019504021", "1019522024", "1713837029", "2472459022", "2565789025", "2840535024", "3792608028" };
             foreach (var Id in ExistingSNOMEDCTIds)
             {
@@ -214,8 +212,8 @@ namespace UnitTests_SCTIDgenerator
             ns = rnd.Next(1000000, 9999999);
             SCTIDgenerator IDgenerator = new SCTIDgenerator(ns);
             ArtificalConceptId = IDgenerator.GenerateConceptId();
-
-            Assert.AreNotEqual(ArtificalConceptId, 0);  // COMMENT: BH - What should it equal? Anyway of being more specific than just 0, An assert = true is strict compared to a negative condition
+            
+            Assert.AreNotEqual(ArtificalConceptId,0);  // COMMENT: BH - What should it equal? Anyway of being more specific than just 0, An assert = true is strict compared to a negative condition
         }
 
         [TestMethod]
