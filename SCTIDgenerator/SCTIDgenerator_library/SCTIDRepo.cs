@@ -73,10 +73,11 @@ namespace SCTIDgenerator_library
                     //There should at least 3. More if the db has been used.
                     if (NumberOfEntriesForNameSpace < 3)
                     {
-                        //initialise with same base zero SCTIDs for the given namespace
-                        ReserveId("0" + initialiserNameSpace + "101");
-                        ReserveId("0" + initialiserNameSpace + "111");
-                        ReserveId("0" + initialiserNameSpace + "121");
+
+                        //initialise with same base 1 SCTIDs for the given namespace
+                        ReserveId("1" + initialiserNameSpace + "10" + Verhoeff.generateVerhoeff("1" + initialiserNameSpace + "10"));
+                        ReserveId("1" + initialiserNameSpace + "11" + Verhoeff.generateVerhoeff("1" + initialiserNameSpace + "11"));
+                        ReserveId("1" + initialiserNameSpace + "12" + Verhoeff.generateVerhoeff("1" + initialiserNameSpace + "12"));
                     }
                 }
             }
@@ -112,6 +113,7 @@ namespace SCTIDgenerator_library
             var idTypeCode = id.Substring(len - 3, 2);
             //namespace is the 7 digits, before the last 3.
             var ns = id.Substring(len - 10, 7);
+            
             //bean is everything else before the first 10.
             string bean = id.Substring(0, len - 10);
             string IDType = null;
