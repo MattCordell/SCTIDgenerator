@@ -11,23 +11,38 @@ namespace Sample_Application_SCTIDgenerator
     {
         static void Main(string[] args)
         {
-            int ns = 1234567;
+            int ns = 1223221;
             SCTIDgenerator foo = new SCTIDgenerator(ns);
+            SCTIDRepo Repo = new SCTIDRepo(ns);
+
             Console.WriteLine("NameSpace =" + ns.ToString());
-            Console.WriteLine("ConceptId ="+foo.GenerateConceptId());
-            Console.WriteLine("DescriptionId =" + foo.GenerateDescriptionId());
-            Console.WriteLine("RelationshipId =" + foo.GenerateRelationshipId());
+
+
+            string bar = foo.GenerateConceptId().ToString();
+            Console.WriteLine("ConceptId =" + bar);
+            Repo.ReserveId(bar);
+            bar = foo.GenerateConceptId().ToString();
+            Console.WriteLine("ConceptId =" + bar);
+            Repo.ReserveId(bar);
+            bar = foo.GenerateConceptId().ToString();
+            Console.WriteLine("ConceptId =" + bar);
+            Repo.ReserveId(bar);
+            
+            Console.WriteLine();
+            bar = foo.GenerateDescriptionId().ToString();
+            Console.WriteLine("DescriptionId =" + bar);
+            Repo.ReserveId(bar);
+            
+            Console.WriteLine();
+            bar = foo.GenerateRelationshipId().ToString();
+            Console.WriteLine("RelationshipId =" + bar);
+            Repo.ReserveId(bar);
             
             string codeString  = "0123456789";
    
             string beep = codeString.Substring(codeString.Length - 6, 3);
             Console.WriteLine("This should be 456 : " + beep);
             Console.WriteLine("48176007 has check digit = " + Verhoeff.generateVerhoeff("4817600"));
-
-            SCTIDRepo Repo = new SCTIDRepo(1234567);
-            Repo.ReserveId("100001234567101");
-            Repo.ReserveId("110001234567111");
-            Repo.ReserveId("120001234567121");
 
             Repo.DumpRepository();
             Console.WriteLine("Repo Dumped.");
