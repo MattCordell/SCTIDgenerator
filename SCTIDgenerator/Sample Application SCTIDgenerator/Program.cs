@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SCTIDgenerator_library;
+using SCTIdGeneratorLibrary;
 
 namespace Sample_Application_SCTIDgenerator
 {
@@ -12,8 +12,8 @@ namespace Sample_Application_SCTIDgenerator
         static void Main(string[] args)
         {
             int ns = 1223221;
-            SCTIDgenerator foo = new SCTIDgenerator(ns);
-            SCTIDRepo Repo = new SCTIDRepo(ns);
+            SCTIdGenerator foo = new SCTIdGenerator(ns);
+            SCTIdRepository Repo = new SCTIdRepository(ns);
 
             Console.WriteLine("NameSpace =" + ns.ToString());
 
@@ -42,7 +42,7 @@ namespace Sample_Application_SCTIDgenerator
    
             string beep = codeString.Substring(codeString.Length - 6, 3);
             Console.WriteLine("This should be 456 : " + beep);
-            Console.WriteLine("48176007 has check digit = " + Verhoeff.generateVerhoeff("4817600"));
+            Console.WriteLine("48176007 has check digit = " + Verhoeff.GenerateVerhoeff("4817600"));
 
             Repo.DumpRepository();
             Console.WriteLine("Repo Dumped.");
