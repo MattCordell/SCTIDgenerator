@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SCTIDgenerator_library;
+using SCTIdGeneratorLibrary;
 using System;
 using System.Collections.Generic;
 
@@ -13,8 +13,8 @@ namespace UnitTests_SCTIDgenerator
         // Assert that a namespace of only 6 characters (too short) will fail validation
         public void Validate_TooShortNameSpace()
         {
-            SCTIDgenerator IDgenerator = new SCTIDgenerator(123456);
-            bool validNameSpace = IDgenerator.IsValidNameSpace();
+            SCTIdGenerator IDgenerator = new SCTIdGenerator(123456);
+            bool validNameSpace = IDgenerator.IsValidNamespace();
             Assert.IsFalse(validNameSpace);
         }
 
@@ -22,8 +22,8 @@ namespace UnitTests_SCTIDgenerator
         // Assert that a namespace of 8 characters (too long) will fail validation
         public void Validate_TooLongNameSpace()
         {
-            SCTIDgenerator IDgenerator = new SCTIDgenerator(12345678);
-            bool validNameSpace = IDgenerator.IsValidNameSpace();
+            SCTIdGenerator IDgenerator = new SCTIdGenerator(12345678);
+            bool validNameSpace = IDgenerator.IsValidNamespace();
             Assert.IsFalse(validNameSpace);
         }
 
@@ -32,8 +32,8 @@ namespace UnitTests_SCTIDgenerator
         // Assert that a namespace of 7 characters (just right) will fail validation
         public void Validate_CorrectNameSpace()
         {
-            SCTIDgenerator IDgenerator = new SCTIDgenerator(1234567);
-            bool validNameSpace = IDgenerator.IsValidNameSpace();
+            SCTIdGenerator IDgenerator = new SCTIdGenerator(1234567);
+            bool validNameSpace = IDgenerator.IsValidNamespace();
             Assert.IsTrue(validNameSpace);           
         }
 
@@ -59,8 +59,8 @@ namespace UnitTests_SCTIDgenerator
 
         private void ValidateARandomlySizedNameSpace(int ns)
         {
-            SCTIDgenerator IDgenerator = new SCTIDgenerator(ns);
-            bool validNameSpace = IDgenerator.IsValidNameSpace();
+            SCTIdGenerator IDgenerator = new SCTIdGenerator(ns);
+            bool validNameSpace = IDgenerator.IsValidNamespace();
 
             //asserts differently depending on ns Size.
             if (ns.ToString().Length < 7)
@@ -104,7 +104,7 @@ namespace UnitTests_SCTIDgenerator
             int j = 0;
             while (j < 1000)
             {
-                int generatedCheckDigit = int.Parse(SCTIDgenerator_library.Verhoeff.generateVerhoeff(seed));
+                int generatedCheckDigit = int.Parse(SCTIdGeneratorLibrary.Verhoeff.GenerateVerhoeff(seed));
 
                 // Remove Checkdigits from the Candidates as they're generated.
                 if (candidates.Contains(generatedCheckDigit))
@@ -126,7 +126,7 @@ namespace UnitTests_SCTIDgenerator
 
         public void SelfValidateVerhoeff(string c)
         {
-            Assert.IsTrue(Verhoeff.validateVerhoeff(c));
+            Assert.IsTrue(Verhoeff.ValidateVerhoeff(c));
         }
 
         [TestMethod]
@@ -136,20 +136,20 @@ namespace UnitTests_SCTIDgenerator
             // all other check digits should fail...
             for (int i = 0; i < 9; i++)
             {
-                if (i != 7 && Verhoeff.validateVerhoeff("4817600" + i))
+                if (i != 7 && Verhoeff.ValidateVerhoeff("4817600" + i))
                 {
                     Assert.Fail();
                 }
             }
             // ... But pass when 7
-            Assert.IsTrue(Verhoeff.validateVerhoeff("48176007"));
+            Assert.IsTrue(Verhoeff.ValidateVerhoeff("48176007"));
         }
 
         [TestMethod]
         public void GenerateAKnownVerhoeff()
         {
             //known SCTID = 48176007 has check digit 7.4817600 should generate same check digit
-            Assert.IsTrue("7" == Verhoeff.generateVerhoeff("4817600"));
+            Assert.IsTrue("7" == Verhoeff.GenerateVerhoeff("4817600"));
         }
     }
 
@@ -161,7 +161,7 @@ namespace UnitTests_SCTIDgenerator
         {
             Random rnd = new Random();
             string seed = rnd.Next(int.MaxValue).ToString();
-            Assert.IsTrue(Verhoeff.generateVerhoeff(seed) == Verhoeff.generateVerhoeff(seed));
+            Assert.IsTrue(Verhoeff.GenerateVerhoeff(seed) == Verhoeff.GenerateVerhoeff(seed));
         }
 
 
@@ -174,7 +174,7 @@ namespace UnitTests_SCTIDgenerator
             string[] ExistingSNOMEDCTIds = { "48176007", "71388002", "78621006", "105590001", "123037004", "123038009", "243796009", "254291000", "260787004", "272379006", "308916002", "362981000", "363787002", "370115009", "373873005", "404684003", "410607006", "419891008", "900000000000441003", "80268017", "118588011", "130458013", "169710016", "189056010", "190895018", "291656011", "364629017", "378526013", "388424018", "388425017", "388426016", "388427013", "388428015", "407503013", "452305016", "470725012", "482116013", "486911019", "491692013", "573283013", "645163010", "652584013", "724699017", "724710013", "754754016", "769964015", "785715019", "811548016", "819582012", "1199173018", "1212316016", "1225256013", "1458019012", "2148514019", "2156578010", "2466059019", "2472261015", "2571651013", "2573280016", "2575824015", "2576552011", "2579706018", "2609236017", "2610738018", "2615979011", "2616135016", "108642591000036118", "900000000000951010", "900000000000952015", "144487025", "144519022", "144611029", "145047021", "145312020", "145315022", "146186027", "146315028", "146410021", "146531021", "146535028", "146538026", "1019504021", "1019522024", "1713837029", "2472459022", "2565789025", "2840535024", "3792608028" };
             foreach (var Id in ExistingSNOMEDCTIds)
             {
-                if (Verhoeff.validateVerhoeff(Id) != true)
+                if (Verhoeff.ValidateVerhoeff(Id) != true)
                 {
                     Assert.Fail(Id + " failed Verhoeff validation");
                     break;
@@ -200,7 +200,7 @@ namespace UnitTests_SCTIDgenerator
         {
             Random rnd = new Random();
             ns = rnd.Next(1000000, 9999999);
-            SCTIDgenerator IDgenerator = new SCTIDgenerator(ns);
+            SCTIdGenerator IDgenerator = new SCTIdGenerator(ns);
             ArtificalConceptId = IDgenerator.GenerateConceptId();
         }
 
@@ -210,7 +210,7 @@ namespace UnitTests_SCTIDgenerator
             //GenerateArtificalConceptId();
             Random rnd = new Random();
             ns = rnd.Next(1000000, 9999999);
-            SCTIDgenerator IDgenerator = new SCTIDgenerator(ns);
+            SCTIdGenerator IDgenerator = new SCTIdGenerator(ns);
             ArtificalConceptId = IDgenerator.GenerateConceptId();
             
             Assert.AreNotEqual(ArtificalConceptId,0);  // COMMENT: BH - What should it equal? Anyway of being more specific than just 0, An assert = true is strict compared to a negative condition
@@ -230,7 +230,7 @@ namespace UnitTests_SCTIDgenerator
         public void ConceptIdHasCheckDigit()
         {
             GenerateArtificalConceptId();
-            Assert.IsTrue(Verhoeff.validateVerhoeff(ArtificalConceptId.ToString()));
+            Assert.IsTrue(Verhoeff.ValidateVerhoeff(ArtificalConceptId.ToString()));
         }
 
         [TestMethod]
@@ -272,7 +272,7 @@ namespace UnitTests_SCTIDgenerator
         {
             Random rnd = new Random();
             ns = rnd.Next(1000000, 9999999);
-            SCTIDgenerator IDgenerator = new SCTIDgenerator(ns);
+            SCTIdGenerator IDgenerator = new SCTIdGenerator(ns);
             ArtificalDescriptionId = IDgenerator.GenerateDescriptionId();
         }
 
@@ -297,7 +297,7 @@ namespace UnitTests_SCTIDgenerator
         public void DescriptionIdHasCheckDigit()
         {
             GenerateArtificalDescriptionId();
-            Assert.IsTrue(Verhoeff.validateVerhoeff(ArtificalDescriptionId.ToString()));
+            Assert.IsTrue(Verhoeff.ValidateVerhoeff(ArtificalDescriptionId.ToString()));
         }
 
         [TestMethod]
@@ -339,7 +339,7 @@ namespace UnitTests_SCTIDgenerator
         {
             Random rnd = new Random();
             ns = rnd.Next(1000000, 9999999);
-            SCTIDgenerator IDgenerator = new SCTIDgenerator(ns);
+            SCTIdGenerator IDgenerator = new SCTIdGenerator(ns);
             ArtificalRelationshipId = IDgenerator.GenerateRelationshipId();
         }
 
@@ -364,7 +364,7 @@ namespace UnitTests_SCTIDgenerator
         public void RelationshipIdHasCheckDigit()
         {
             GenerateArtificalRelationshipId();
-            Assert.IsTrue(Verhoeff.validateVerhoeff(ArtificalRelationshipId.ToString()));
+            Assert.IsTrue(Verhoeff.ValidateVerhoeff(ArtificalRelationshipId.ToString()));
         }
 
         [TestMethod]

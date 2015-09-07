@@ -69,9 +69,9 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SCTIDgenerator_library\SCTIDgenerator_library.csproj">
+    <ProjectReference Include="..\SCTIDgenerator_library\SctidGeneratorLibrary.csproj">
       <Project>{7b1e6b67-fa33-48f2-b78e-3ea345d37690}</Project>
-      <Name>SCTIDgenerator_library</Name>
+      <Name>SctidGeneratorLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

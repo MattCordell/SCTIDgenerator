@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
-using SCTIDgenerator_library;
+using SCTIdGeneratorLibrary;
 using System.Data.SQLite;
 
 namespace UnitTests_SCTIDgenerator
@@ -25,7 +25,7 @@ namespace UnitTests_SCTIDgenerator
             {
                 File.Delete(RepoFile);
             }
-            SCTIDRepo Repo = new SCTIDRepo(1234567);
+            SCTIdRepository Repo = new SCTIdRepository(1234567);
             Assert.IsTrue(File.Exists(RepoFile));
         }
 
@@ -44,7 +44,7 @@ namespace UnitTests_SCTIDgenerator
         [TestMethod]
         public void AbleToGetNextConceptBean()
         {
-            SCTIDRepo Repo = new SCTIDRepo(1234567);
+            SCTIdRepository Repo = new SCTIdRepository(1234567);
 
             Repo.ReserveId("88888881234567101");
             int NextBean = Repo.GetNextBean("Concept", 1234567);
@@ -56,7 +56,7 @@ namespace UnitTests_SCTIDgenerator
         public void AbleToReserveConceptId()
         {
             var ID = "11234567100";
-            SCTIDRepo Repo = new SCTIDRepo(1234567);
+            SCTIdRepository Repo = new SCTIdRepository(1234567);
             try
             {
                 Repo.ReserveId(ID);
@@ -76,7 +76,7 @@ namespace UnitTests_SCTIDgenerator
             {
                 File.Delete(RepoDump);
             }
-            SCTIDRepo Repo = new SCTIDRepo(1234567);
+            SCTIdRepository Repo = new SCTIdRepository(1234567);
 
             Repo.DumpRepository();
 
@@ -91,7 +91,7 @@ namespace UnitTests_SCTIDgenerator
             {
                 File.Delete(RepoDump);
             }
-            SCTIDRepo Repo = new SCTIDRepo(1234567);
+            SCTIdRepository Repo = new SCTIdRepository(1234567);
 
             string usedIds = "TestFileDump.txt";
             Random foo = new Random();
@@ -101,7 +101,7 @@ namespace UnitTests_SCTIDgenerator
             File.WriteAllText(usedIds, RandomBean + "1234567121");
 
             //import that file
-            Repo.ImportAllocatedSCTIDs(usedIds);
+            Repo.ImportAllocatedSCTIds(usedIds);
             //and get the next been..           
             //which should be 1 more than the random bean inserted above.
             Assert.IsTrue(Repo.GetNextBean("Relationship", 1234567) == RandomBean + 1);

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SCTIDgenerator_library
+namespace SCTIdGeneratorLibrary
 {
     // The Verhoeff has been lifted directly from http://en.wikibooks.org/wiki/Algorithm_Implementation/Checksums/Verhoeff_Algorithm on 01/May/2014
     /// <summary>
@@ -51,12 +51,12 @@ namespace SCTIDgenerator_library
         /// Validates that an entered number is Verhoeff compliant.
         /// NB: Make sure the check digit is the last one!
         /// </summary>
-        /// <param name="num"></param>
+        /// <param name="number"></param>
         /// <returns>True if Verhoeff compliant, otherwise false</returns>
-        public static bool validateVerhoeff(string num)
+        public static bool ValidateVerhoeff(string number)
         {
             int c = 0;
-            int[] myArray = StringToReversedIntArray(num);
+            int[] myArray = StringToReversedIntArray(number);
 
             for (int i = 0; i < myArray.Length; i++)
             {
@@ -71,12 +71,12 @@ namespace SCTIDgenerator_library
         /// For a given number generates a Verhoeff digit
         /// Append this check digit to num
         /// </summary>
-        /// <param name="num"></param>
+        /// <param name="number"></param>
         /// <returns>Verhoeff check digit as string</returns>
-        public static string generateVerhoeff(string num)
+        public static string GenerateVerhoeff(string number)
         {
             int c = 0;
-            int[] myArray = StringToReversedIntArray(num);
+            int[] myArray = StringToReversedIntArray(number);
 
             for (int i = 0; i < myArray.Length; i++)
             {

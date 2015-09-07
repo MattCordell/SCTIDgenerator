@@ -7,7 +7,7 @@ using System.Reflection;
 using System.IO;
 using System.Data.SQLite;
 
-namespace SCTIDgenerator_library
+namespace SCTIdGeneratorLibrary
 {
 
     //SCTIDRepo is really simple database repo for storing assigned SCTIDs.
@@ -18,14 +18,14 @@ namespace SCTIDgenerator_library
     //IdType = for filtering Concept/Description/Relationship Ids
 
 
-    public class SCTIDRepo
+    public class SCTIdRepository
     {
         private const string RepoFile = "SCTIDRepo.db";
         private string connectionString = "data source=" + RepoFile + ";Version=3;Cache Size=2000;Page Size=32768;Synchronous=OFF;Journal Mode=WAL;";  // COMMENT: BH - inconsistant casing of global scoped variables this is lower case - next line is upper case
         private string RepDumpFile = "SCTID_Repository_Dump.txt"; // COMMENT: BH - consistantly case similar scoped variables
 
         //Constructor will set the current Directory to launch directory, and make sure a DB exists
-        public SCTIDRepo(int initialiserNameSpace)
+        public SCTIdRepository(int initialiserNamespace)
         {
             System.IO.Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
 
@@ -66,7 +66,7 @@ namespace SCTIDgenerator_library
             {
                 using (SQLiteCommand cmd = new SQLiteCommand(CheckIfInitialisedForNameSpace, cnn))
                 {
-                    cmd.Parameters.AddWithValue("@NameSpace", initialiserNameSpace);
+                    cmd.Parameters.AddWithValue("@NameSpace", initialiserNamespace);
                     cnn.Open();
                     var NumberOfEntriesForNameSpace = int.Parse(cmd.ExecuteScalar().ToString());
 
@@ -75,9 +75,9 @@ namespace SCTIDgenerator_library
                     {
 
                         //initialise with same base 1 SCTIDs for the given namespace
-                        ReserveId("1" + initialiserNameSpace + "10" + Verhoeff.generateVerhoeff("1" + initialiserNameSpace + "10"));
-                        ReserveId("1" + initialiserNameSpace + "11" + Verhoeff.generateVerhoeff("1" + initialiserNameSpace + "11"));
-                        ReserveId("1" + initialiserNameSpace + "12" + Verhoeff.generateVerhoeff("1" + initialiserNameSpace + "12"));
+                        ReserveId("1" + initialiserNamespace + "10" + Verhoeff.GenerateVerhoeff("1" + initialiserNamespace + "10"));
+                        ReserveId("1" + initialiserNamespace + "11" + Verhoeff.GenerateVerhoeff("1" + initialiserNamespace + "11"));
+                        ReserveId("1" + initialiserNamespace + "12" + Verhoeff.GenerateVerhoeff("1" + initialiserNamespace + "12"));
                     }
                 }
             }
@@ -87,14 +87,14 @@ namespace SCTIDgenerator_library
 
         //'Beans' are the bit before a namespace, kinda like a counter for the SCTIDs.
         //This method returns the next 'bean' available for a given namespace and idType
-        public int GetNextBean(string idtype, int ns)
+        public int GetNextBean(string idType, int ns)
         {
             string MaxBeanQuery = "select max(Bean) from SCTIDs where IdType = @IDType and NameSpace = @NameSpace;";
             using (SQLiteConnection cnn = new SQLiteConnection(connectionString))
             {
                 using (SQLiteCommand cmd = new SQLiteCommand(MaxBeanQuery, cnn))
                 {
-                    cmd.Parameters.AddWithValue("@IDType", idtype);
+                    cmd.Parameters.AddWithValue("@IDType", idType);
                     cmd.Parameters.AddWithValue("@NameSpace", ns);
                     cnn.Open();
                     var MaxCurrentBean = cmd.ExecuteScalar().ToString();
@@ -174,9 +174,9 @@ namespace SCTIDgenerator_library
 
 
         //method for Importing a list of SCTIds previously assigned, into the Repo
-        public void ImportAllocatedSCTIDs(string AllocatedIdFiles)
+        public void ImportAllocatedSCTIds(string allocatedIdFiles)
         {
-            var UsedIds = File.ReadAllLines(AllocatedIdFiles);
+            var UsedIds = File.ReadAllLines(allocatedIdFiles);
 
             foreach (var id in UsedIds)
             {

@@ -5,24 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace SCTIDgenerator_library
+namespace SCTIdGeneratorLibrary
 {
-    public class SCTIDgenerator
+    public class SCTIdGenerator
     {
-        private int ExtenstionNameSpace;
-        private SCTIDRepo Repo;
+        private int Namespace;
+        private SCTIdRepository Repo;
 
         // All extensions require a namespace to seed SCTIDgenerator
-        public SCTIDgenerator(int ns)
+        public SCTIdGenerator(int ns)
         {
-            ExtenstionNameSpace = ns;
-            Repo = new SCTIDRepo(ExtenstionNameSpace);
+            Namespace = ns;
+            Repo = new SCTIdRepository(Namespace);
         }
 
         //Validate the Set Namespace is 7 digits exactly.
-        public bool IsValidNameSpace()
+        public bool IsValidNamespace()
         {
-            if (ExtenstionNameSpace.ToString().Length == 7)
+            if (Namespace.ToString().Length == 7)
             {
                 return true;
             }
@@ -38,15 +38,15 @@ namespace SCTIDgenerator_library
         internal long Verhoefferise(string p)
         {
             string VerhoefferisedResult;
-            VerhoefferisedResult = p + Verhoeff.generateVerhoeff(p);
+            VerhoefferisedResult = p + Verhoeff.GenerateVerhoeff(p);
             return long.Parse(VerhoefferisedResult);
         }
 
         //Generate a ConceptId, based on the intialising NameSpace
         public long GenerateConceptId()
         {
-            int foo = Repo.GetNextBean("Concept", ExtenstionNameSpace);
-            string generatedIdPart = foo.ToString() + ExtenstionNameSpace.ToString() + "10";
+            int foo = Repo.GetNextBean("Concept", Namespace);
+            string generatedIdPart = foo.ToString() + Namespace.ToString() + "10";
 
             return Verhoefferise(generatedIdPart);
         }
@@ -54,8 +54,8 @@ namespace SCTIDgenerator_library
         //Generate a ConceptId, based on the intialising NameSpace
         public long GenerateDescriptionId()
         {
-            int foo = Repo.GetNextBean("Description", ExtenstionNameSpace);
-            string generatedIdPart = foo.ToString() + ExtenstionNameSpace.ToString() + "11";
+            int foo = Repo.GetNextBean("Description", Namespace);
+            string generatedIdPart = foo.ToString() + Namespace.ToString() + "11";
 
             return Verhoefferise(generatedIdPart);
         }
@@ -63,8 +63,8 @@ namespace SCTIDgenerator_library
         //Generate a ConceptId, based on the intialising NameSpace
         public long GenerateRelationshipId()
         {
-            int foo = Repo.GetNextBean("Relationship", ExtenstionNameSpace);
-            string generatedIdPart = foo.ToString() + ExtenstionNameSpace.ToString() + "12"; // COMMENT: BH - Use stringBuilder instead - http://stackoverflow.com/questions/73883/string-vs-stringbuilder you know this one
+            int foo = Repo.GetNextBean("Relationship", Namespace);
+            string generatedIdPart = foo.ToString() + Namespace.ToString() + "12"; // COMMENT: BH - Use stringBuilder instead - http://stackoverflow.com/questions/73883/string-vs-stringbuilder you know this one
 
             return Verhoefferise(generatedIdPart);
         }
